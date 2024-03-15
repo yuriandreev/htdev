@@ -14,7 +14,7 @@
 <header>
     <div class="wrapper">
         <div class="header__menu">
-
+            <?php my_nav_menu([ 'primary'  => 'navigation_menu_primary' ] ); ?>
         </div>
     </div>
 </header>
