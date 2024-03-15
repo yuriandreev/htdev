@@ -35,3 +35,52 @@ function my_nav_menu( $args ) {
 
     echo wp_nav_menu( $args );
 }
+
+
+add_action( 'init', 'create_taxonomy' );
+function create_taxonomy(){
+    register_taxonomy( 'mytaxonomy', [ 'my_post_type' ], [
+        'label'                 => '',
+        'labels'                => [
+            'name'              => 'Таксономии',
+            'singular_name'     => 'Таксономия',
+            'search_items'      => 'Поиск таксономий',
+            'all_items'         => 'Все таксономии',
+            'view_item '        => 'Посмотреть таксономию',
+            'parent_item'       => 'Родительская таксономия',
+            'parent_item_colon' => 'Родительская таксономия:',
+            'edit_item'         => 'Редакировать таксономию',
+            'update_item'       => 'Обновить таксономию',
+            'add_new_item'      => 'Добавить таксономию',
+            'new_item_name'     => 'Новая таксономия',
+            'menu_name'         => 'Таксономии',
+            'back_to_items'     => '← Перейти к таксономиям',
+        ],
+    ] );
+}
+add_action( 'init', 'register_post_types' );
+
+function register_post_types(){
+    register_post_type( 'my_post_type', [
+        'label'  => null,
+        'labels' => [
+            'name'               => 'Кастомные типы',
+            'singular_name'      => 'Кастомный тип',
+            'add_new'            => 'Добавить кастомный тип',
+            'add_new_item'       => 'Добавление кастомного типа',
+            'edit_item'          => 'Редактирование кастомного типа',
+            'new_item'           => 'Новый кастомный тип',
+            'view_item'          => 'Смотреть кастомного тип',
+            'search_items'       => 'Искать кастомного тип',
+            'not_found'          => 'Не найдено',
+            'not_found_in_trash' => 'Не найдено в корзине',
+            'parent_item_colon'  => '',
+        ],
+        'public'                 => true,
+        'show_in_menu'           => true,
+        'menu_position'       => 1,
+        'menu_icon'           => 'dashicons-admin-customizer',
+        'supports'            => [ 'title', 'editor' ],
+        'taxonomies'          => ['mytaxonomy'],
+    ] );
+}
